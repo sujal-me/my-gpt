@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: ollama-api
+    env: docker
+    region: ohio
+    plan: free
+    
+    # Build configuration
+    dockerfilePath: ./Dockerfile
+    
+    # Environment variables
+    envVars:
+      - key: PORT
+        value: 5000
+      - key: FLASK_DEBUG
+        value: "False"
+      # Set OLLAMA_BASE_URL if using external Ollama server
+      # - key: OLLAMA_BASE_URL
+      #   value: http://your-ollama-server:11434
+      - key: DEFAULT_MODEL
+        value: ministral-3:8b-cloud
+    
+    # Health check
+    healthCheckPath: /health
+    
+    # Auto-deploy on push
+    autoDeploy: true
